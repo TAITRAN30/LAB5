@@ -1,0 +1,169 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+abstract class NhanVien {
+    protected String maNhanVien;
+    protected String tenNhanVien;
+    protected String trinhDo;
+    protected double luongCoBan;
+    public NhanVien() {
+        this.maNhanVien = "";
+        this.tenNhanVien = "";
+        this.trinhDo = "";
+        this.luongCoBan = 0;
+    }
+    public NhanVien(String maNhanVien, String tenNhanVien, String trinhDo) {
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
+        this.trinhDo = trinhDo;
+        this.luongCoBan = 0;
+    }
+    public String getMaNhanVien() {
+        return maNhanVien;
+    }
+    public String getTenNhanVien() {
+        return tenNhanVien;
+    }
+    public String getTrinhDo() {
+        return trinhDo;
+    }
+    public double getLuongCoBan() {
+        return luongCoBan;
+    }
+    public void setLuongCoBan(double luongCoBan) {
+        this.luongCoBan = luongCoBan;
+    }
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap ma nhan vien: ");
+        maNhanVien = sc.nextLine();
+        System.out.print("Nhap ten nhan vien: ");
+        tenNhanVien = sc.nextLine();
+        System.out.print("Nhap trinh do: ");
+        trinhDo = sc.nextLine();
+        System.out.print("Nhap luong co ban: ");
+        luongCoBan = sc.nextDouble();
+    }
+    public void xuat() {
+        System.out.println("Ma nhan vien: " + maNhanVien);
+        System.out.println("Ten nhan vien: " + tenNhanVien);
+        System.out.println("Trinh do: " + trinhDo);
+        System.out.println("Luong co ban: " + luongCoBan);
+    }
+    public abstract double tinhLuong();
+}
+class QuanLy extends NhanVien {
+    private String chuyenMon;
+    private String phuCapChucVu;
+    public QuanLy() {
+        super();
+        this.chuyenMon = "";
+        this.phuCapChucVu = 0;
+    }
+    public QuanLy(String maNhanVien, String tenNhanVien, String trinhDo, String chuyenMon, double phuCapChucVu) {
+        super(maNhanVien, tenNhanVien, trinhDo);
+        this.chuyenMon = chuyenMon;
+        this.phuCapChucVu = phuCapChucVu;
+    }
+    public String getChuyenMon() {
+        return chuyenMon;
+    }
+    public double getPhuCapChucVu() {
+        return phuCapChucVu;
+    }
+    @Override
+    public void nhap() {
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap chuyen mon: ");
+        chuyenMon = sc.nextLine();
+        System.out.print("Nhap phu cap chuc vu: ");
+        phuCapChucVu = sc.nextDouble();
+    }
+    @Override
+    public void xuat() {
+        super.xuat();
+        System.out.println("Chuyen mon: " + chuyenMon);
+        System.out.println("Phu cap chuc vu: " + phuCapChucVu);
+    }
+    @Override
+    public double tinhLuong() {
+        return luongCoBan + phuCapChucVu;
+    }
+}
+class NghienCuu extends NhanVien {
+    private String chuyenMon;
+    private double phuCapDocHai;
+    public NghienCuu() {
+        super();
+        this.chuyenMon = "";
+        this.phuCapDocHai = 0;
+    }
+    public NghienCuu(String maNhanVien, String tenNhanVien, String trinhDo, String chuyenMon, double phuCapDocHai) {
+        super(maNhanVien, tenNhanVien, trinhDo);
+        this.chuyenMon = chuyenMon;
+        this.phuCapDocHai = phuCapDocHai;
+    }
+    public String getChuyenMon() {
+        return chuyenMon;
+    }
+    public double getPhuCapDocHai() {
+        return phuCapDocHai;
+    }
+    @Override
+    public void nhap() {
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap chuyen mon: ");
+        chuyenMon = sc.nextLine();
+        System.out.print("Nhap phu cap doc hai: ");
+        phuCapDocHai = sc.nextDouble();
+    }
+    @Override
+    public void xuat() {
+        super.xuat();
+        System.out.println("Chuyen mon: " + chuyenMon);
+        System.out.println("Phu cap doc hai: " + phuCapDocHai);
+    }
+    @Override
+    public double tinhLuong() {
+        return luongCoBan + phuCapDocHai;
+    }
+}
+class PhucVu extends NhanVien {
+    public PhucVu() {
+        super();
+    }
+    public PhucVu(String maNhanVien, String tenNhanVien, String trinhDo) {
+        super(maNhanVien, tenNhanVien, trinhDo);
+    }
+    @Override
+    public double tinhLuong() {
+        return luongCoBan;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        QuanLy quanLy = new QuanLy("QL001", "Nguyen Van A", "Dai hoc", "Quan tri", 2000000);
+        quanLy.nhap(); 
+        quanLy.xuat(); 
+        System.out.println("Luong: " + quanLy.tinhLuong()); 
+        NghienCuu nghienCuu = new NghienCuu("NC001", "Tran Thi B", "Thac si", "Hoa hoc", 1500000);
+        nghienCuu.nhap(); 
+        nghienCuu.xuat(); 
+        System.out.println("Luong: " + nghienCuu.tinhLuong()); 
+        PhucVu phucVu = new PhucVu("PV001", "Le Van C", "Trung cap");
+        phucVu.nhap(); 
+        phucVu.xuat(); 
+        System.out.println("Luong: " + phucVu.tinhLuong()); 
+        danhSachNhanVien.add(quanLy);
+        danhSachNhanVien.add(nghienCuu);
+        danhSachNhanVien.add(phucVu);
+        System.out.println("\nDanh sach nhan vien:");
+        for (NhanVien nv : danhSachNhanVien) {
+            nv.xuat();
+            System.out.println("Luong: " + nv.tinhLuong());
+        }
+    }
+}
